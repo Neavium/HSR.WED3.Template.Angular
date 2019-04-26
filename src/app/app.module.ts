@@ -25,7 +25,7 @@ import {AppComponent} from './app.component';
     FormsModule,
     HttpClientModule,
 
-    CoreModule.forRoot(),
+    CoreModule.forRoot({ localization: 'de-CH'}),
     AuthModule.forRoot(),
     WelcomeModule.forRoot(),
 
