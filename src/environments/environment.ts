@@ -7,6 +7,9 @@ export const environment = {
   serverBaseUrl: 'http://localhost:3000'
 };
 
+// alternatively, you could use serverBaseUrl: 'https://wed3-server.herokuapp.com'
+
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
