@@ -15,6 +15,7 @@ import {LoginInfo} from '../models/login-info';
 export class LoginComponent implements OnInit {
 
   private backUrl;
+  private hasError = false;
 
   public login: string;
   public password: string;
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.isProcessing = false;
         if (credentials) {
           if (this.backUrl) {
-            this.navigationSvc.goToUrl(this.backUrl);
+            this.navigationSvc.goToHome();
           } else {
             this.navigationSvc.goToDashboard();
           }
@@ -42,10 +43,19 @@ export class LoginComponent implements OnInit {
   }
 
   public doLogin(f: NgForm): boolean {
-    if (f && f.valid) {
+    if (f.value.password) {
       this.isProcessing = true;
+      this.hasError = false;
       this.autSvc.login(new LoginInfo(f.value.login, f.value.password));
+      this.ngOnInit();
+      if ( this.autSvc.hasLoginError() ) {
+        this.hasError = true;
+      }
     }
     return false;
+  }
+
+  public register(): void {
+    this.navigationSvc.goToRegister();
   }
 }

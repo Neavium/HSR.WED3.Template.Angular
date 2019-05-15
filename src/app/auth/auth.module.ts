@@ -1,6 +1,7 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {CommonModule} from '@angular/common';
 
 import {SharedModule} from '@app/shared';
 
@@ -30,10 +31,10 @@ const EXPORTS = [
   declarations: INTERNAL_DECLARATIONS,
   imports: [
     FormsModule,
-    SharedModule
+    SharedModule,
+    CommonModule
   ],
   exports: EXPORTS,
-  providers: [AuthResourceService]
 })
 export class AuthModule {
   static forRoot(config?: {}): ModuleWithProviders {
@@ -44,7 +45,7 @@ export class AuthModule {
         // For Single-Providers use {providedIn: 'root'} instead.
 
         // TODO: Add services/guards/... here or use {providedIn: 'root'} directly on those classes
-        SecurityTokenStore,
+        SecurityTokenStore, AuthResourceService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: TokenInterceptor,

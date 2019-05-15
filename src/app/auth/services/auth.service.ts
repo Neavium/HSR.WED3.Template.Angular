@@ -14,6 +14,9 @@ import {SecurityTokenStore} from './credential-management/security-token-store';
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
+  private registerError: boolean;
+  private loginError: boolean;
+
   public authenticatedUserChange: EventEmitter<Account> = new EventEmitter<Account>();
 
   public get authenticatedUser(): Account {
@@ -35,16 +38,29 @@ export class AuthService {
   public register(registerModel: RegistrationInfo): void {
     this.resource.register(registerModel).subscribe(
       (data: Account) => {
-        this.login(registerModel);
+        console.log('auth service data: ' + data);
+        if ( data ) {
+          this.login(registerModel);
+        } else {
+          console.log('register failed!');
+          // TODO handle bad case
+          this.registerError = true;
+        }
       });
   }
 
   public login(loginModel: LoginInfo): void {
     this.resource.login(loginModel).subscribe(
       (data: Credential) => {
-        this.tokenStore.storedValue = data;
-        this.authUser = !isBlank(data) ? data.owner : null;
-        this.authenticatedUserChange.emit(this.authenticatedUser);
+        if ( data ) {
+          this.tokenStore.storedValue = data;
+          this.authUser = !isBlank(data) ? data.owner : null;
+          this.authenticatedUserChange.emit(this.authenticatedUser);
+        } else {
+          console.log('login failed');
+          // TODO handle bad case
+          this.loginError = true;
+        }
       });
   }
 
@@ -52,5 +68,13 @@ export class AuthService {
     this.tokenStore.storedValue = null;
     this.authUser = null;
     this.authenticatedUserChange.emit(null);
+  }
+
+  public hasRegisterError(): boolean {
+    return this.registerError;
+  }
+
+  public hasLoginError(): boolean {
+    return this.loginError;
   }
 }

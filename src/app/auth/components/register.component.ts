@@ -13,8 +13,13 @@ import {RegistrationInfo} from '../models/registration-info';
 })
 export class RegisterComponent implements OnInit {
 
+  private hasError = false;
+  private usernameAlreadyUsed = false;
+  private passwordNotEqual = false;
+
   public login: string;
   public password: string;
+  public passwordConfirm: string;
   public firstname: string;
   public lastname: string;
 
@@ -29,6 +34,9 @@ export class RegisterComponent implements OnInit {
         this.isProcessing = false;
         if (credentials) {
           this.navigationSvc.goToDashboard();
+        } else {
+          this.navigationSvc.goToRegister();
+          this.hasError = true;
         }
       });
   }
@@ -36,11 +44,22 @@ export class RegisterComponent implements OnInit {
   public doRegister(f: NgForm): boolean {
     if (f && f.valid) {
       this.isProcessing = true;
-      this.autSvc.register(new RegistrationInfo(
-        f.value.login,
-        f.value.password,
-        f.value.firstname,
-        f.value.lastname));
+      if ( this.password === this.passwordConfirm ) {
+        this.passwordNotEqual = false;
+        this.autSvc.register(new RegistrationInfo(
+          f.value.login,
+          f.value.password,
+          f.value.firstname,
+          f.value.lastname));
+        this.ngOnInit();
+        if ( this.autSvc.hasRegisterError() ) {
+          this.usernameAlreadyUsed = true;
+        } else if ( this.autSvc.hasLoginError() ) {
+          this.hasError = true;
+        }
+      } else {
+        this.passwordNotEqual = true;
+      }
     }
     return false;
   }

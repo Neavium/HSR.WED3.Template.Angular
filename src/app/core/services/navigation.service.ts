@@ -11,11 +11,15 @@ export class NavigationService {
   // TODO: add other routing targets, if needed
 
   public goToHome(): void {
-    this.goToUrl('/'); // TODO: adjust routing according this URL
+    this.goToUrl('/');
   }
 
   public goToDashboard(): void {
-    this.goToUrl('/dashboard'); // TODO: adjust routing according this URL
+    this.goToUrl('/dashboard');
+  }
+
+  public goToRegister(): void {
+    this.goToUrl('/welcome/register');
   }
 
   constructor(private router: Router) {

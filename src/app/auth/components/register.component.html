@@ -1,39 +1,62 @@
 <!-- TODO: Add ng specific directives/validation settings and add styling -->
-<form (ngSubmit)="doRegister(null)">
-  <label>
-    First name:
-    <div>
-      <input pattern=".{2,}" placeholder="First name" type="text" name="firstname">
-      <div>Please specify your first name.</div>
-    </div>
-  </label>
-  <label>
-    Last name:
-    <div>
-      <input pattern=".{2,}" placeholder="Last name" type="text" name="lastname">
-      <div>Please specify your last name.</div>
-    </div>
-  </label>
-  <label>
-    User name:
-    <div>
-      <input pattern=".{3,}" placeholder="User" type="text" name="login">
-      <div>Please specify your login, at least three characters.</div>
-    </div>
-  </label>
-  <label>
-    Password:
-    <div>
-      <input pattern=".{3,}" placeholder="Password" type="password" name="password">
-      <div>Please specify your password, at least three characters.</div>
-    </div>
-  </label>
-  <label>
-    Confirm Password:
-    <div>
-      <input pattern=".{3,}" placeholder="Password" type="password" name="passwordConfirm">
-      <div>Please confirm your password.</div>
-    </div>
-  </label>
-  <button>Register</button>
+<form (ngSubmit)="doRegister(registerForm)" #registerForm="ngForm" class="ui form"
+      style="width: 75%; margin-left: 12.5%; margin-top: 10%">
+  <div class="field">
+    <label>
+      First name:
+      <div>
+        <input type="text" pattern=".{2,}" placeholder="First name"
+               name="firstname" [(ngModel)]="firstname" #Firstname="ngModel"
+               style="width: 30em" required>
+        <div *ngIf="Firstname.invalid && (Firstname.dirty || Firstname.touched)">Please specify your first name.</div>
+      </div>
+    </label>
+  </div>
+  <div class="field">
+    <label>
+      Last name:
+      <div>
+        <input type="text" pattern=".{2,}" placeholder="Last name"
+               name="lastname" [(ngModel)]="lastname" #Lastname="ngModel"
+               style="width: 30em" required>
+        <div *ngIf="Lastname.invalid && (Lastname.dirty || Lastname.touched)">Please specify your last name.</div>
+      </div>
+    </label>
+  </div>
+  <div class="field">
+    <label>
+      User name:
+      <div>
+        <input type="text" pattern=".{3,}" placeholder="User"
+               name="login" [(ngModel)]="login" #Login="ngModel"
+               style="width: 30em" required>
+        <div *ngIf="Login.invalid && (Login.dirty || Login.touched)">Please specify your login, at least three characters.</div>
+        <div *ngIf="usernameAlreadyUsed" style="color: red">Username has already been used. Choose a different one.</div>
+      </div>
+    </label>
+  </div>
+  <div class="field">
+    <label>
+      Password:
+      <div>
+        <input type="password" pattern=".{3,}" placeholder="Password"
+               name="password" [(ngModel)]="password" #Password="ngModel"
+               style="width: 30em" required>
+        <div *ngIf="Password.invalid && (Password.dirty || Password.touched)">Please specify your password, at least three characters.</div>
+      </div>
+    </label>
+  </div>
+  <div class="field">
+    <label>
+      Confirm Password:
+      <div>
+        <input type="password" pattern=".{3,}" placeholder="Password"
+               name="passwordConfirm" [(ngModel)]="passwordConfirm" #PasswordConfirm="ngModel"
+               style="width: 30em" required>
+        <div *ngIf="(PasswordConfirm.invalid && (PasswordConfirm.dirty || PasswordConfirm.touched)) ||
+              (passwordNotEqual)">Please confirm your password.</div>
+      </div>
+    </label>
+  </div>
+  <button class="ui button" type="submit">Register</button>
 </form>
