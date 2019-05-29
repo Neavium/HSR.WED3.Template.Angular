@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
-import {Observable, of, throwError} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
 import {ResourceBase} from '@app/core';
@@ -22,9 +22,7 @@ export class AuthResourceService extends ResourceBase {
     return this.post('/auth/register', model.toDto())
       .pipe(
         map((result: any) => {
-          console.log('register result: ' + result);
           if (result) {
-            console.log('account: ' + Account.fromDto(result));
             return Account.fromDto(result);
           }
           return null;
@@ -37,9 +35,7 @@ export class AuthResourceService extends ResourceBase {
     return this.post('/auth/login', model.toDto())
       .pipe(
         map((result: any) => {
-          console.log('login result: ' + result);
           if (result) {
-            console.log('credentials: ' + Credential.fromDto(result));
             return Credential.fromDto(result);
           }
           return null;

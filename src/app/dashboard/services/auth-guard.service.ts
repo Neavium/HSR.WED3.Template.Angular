@@ -7,6 +7,10 @@ export class AuthGuardService implements CanLoad {
   constructor(private authService: AuthService, private router: Router) {
   }
   canLoad(route: Route): boolean {
-    return this.authService.hasCredentials;
+    if (!this.authService.hasCredentials) {
+      this.router.navigateByUrl('/');
+      return false;
+    }
+    return true;
   }
 }

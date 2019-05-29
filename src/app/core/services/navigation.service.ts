@@ -22,6 +22,10 @@ export class NavigationService {
     this.goToUrl('/welcome/register');
   }
 
+  public goToAllTransactions(): void {
+    this.goToUrl('/dashboard/transactions');
+  }
+
   constructor(private router: Router) {
   }
 }

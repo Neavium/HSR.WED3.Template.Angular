@@ -38,13 +38,12 @@ export class AuthService {
   public register(registerModel: RegistrationInfo): void {
     this.resource.register(registerModel).subscribe(
       (data: Account) => {
-        console.log('auth service data: ' + data);
         if ( data ) {
           this.login(registerModel);
         } else {
-          console.log('register failed!');
           // TODO handle bad case
           this.registerError = true;
+          this.authenticatedUserChange.emit(this.authenticatedUser);
         }
       });
   }
@@ -57,9 +56,9 @@ export class AuthService {
           this.authUser = !isBlank(data) ? data.owner : null;
           this.authenticatedUserChange.emit(this.authenticatedUser);
         } else {
-          console.log('login failed');
           // TODO handle bad case
           this.loginError = true;
+          this.authenticatedUserChange.emit(this.authenticatedUser);
         }
       });
   }

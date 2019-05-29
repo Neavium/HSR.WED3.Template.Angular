@@ -1,4 +1,12 @@
-<!-- TODO: Add ng specific directives/validation settings and add styling -->
+<div class="ui inverted segment" style="border-radius: 0">
+  <div class="ui inverted secondary menu" style="display: flex; align-items: center">
+    <h1 style="margin: 0">Bank of Rapperswil</h1>
+    <p style="margin: 0 20px">Register</p>
+    <form (ngSubmit)="goToHome()">
+      <button class="item" type="submit">Home</button>
+    </form>
+  </div>
+</div>
 <form (ngSubmit)="doRegister(registerForm)" #registerForm="ngForm" class="ui form"
       style="width: 75%; margin-left: 12.5%; margin-top: 10%">
   <div class="field">
@@ -53,8 +61,8 @@
         <input type="password" pattern=".{3,}" placeholder="Password"
                name="passwordConfirm" [(ngModel)]="passwordConfirm" #PasswordConfirm="ngModel"
                style="width: 30em" required>
-        <div *ngIf="(PasswordConfirm.invalid && (PasswordConfirm.dirty || PasswordConfirm.touched)) ||
-              (passwordNotEqual)">Please confirm your password.</div>
+        <div *ngIf="PasswordConfirm.invalid && (PasswordConfirm.dirty || PasswordConfirm.touched)">Please confirm your password.</div>
+        <div *ngIf="passwordNotEqual" style="color: red">Please confirm your password.</div>
       </div>
     </label>
   </div>

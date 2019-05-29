@@ -36,31 +36,32 @@ export class RegisterComponent implements OnInit {
           this.navigationSvc.goToDashboard();
         } else {
           this.navigationSvc.goToRegister();
-          this.hasError = true;
+          this.usernameAlreadyUsed = this.autSvc.hasRegisterError();
+          this.hasError = this.autSvc.hasLoginError();
         }
       });
   }
 
-  public doRegister(f: NgForm): boolean {
+  public doRegister(f: NgForm): void {
     if (f && f.valid) {
       this.isProcessing = true;
+      this.hasError = false;
+      this.usernameAlreadyUsed = false;
       if ( this.password === this.passwordConfirm ) {
         this.passwordNotEqual = false;
+
         this.autSvc.register(new RegistrationInfo(
           f.value.login,
           f.value.password,
           f.value.firstname,
           f.value.lastname));
-        this.ngOnInit();
-        if ( this.autSvc.hasRegisterError() ) {
-          this.usernameAlreadyUsed = true;
-        } else if ( this.autSvc.hasLoginError() ) {
-          this.hasError = true;
-        }
       } else {
         this.passwordNotEqual = true;
       }
     }
-    return false;
+  }
+
+  public goToHome(): void {
+    this.navigationSvc.goToHome();
   }
 }

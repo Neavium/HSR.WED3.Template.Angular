@@ -38,21 +38,22 @@ export class LoginComponent implements OnInit {
           } else {
             this.navigationSvc.goToDashboard();
           }
+        } else {
+          this.hasError = this.autSvc.hasLoginError();
         }
       });
   }
 
-  public doLogin(f: NgForm): boolean {
+  public goToHome(): void {
+    this.navigationSvc.goToHome();
+  }
+
+  public doLogin(f: NgForm): void {
+    this.hasError = false;
     if (f.value.password) {
       this.isProcessing = true;
-      this.hasError = false;
       this.autSvc.login(new LoginInfo(f.value.login, f.value.password));
-      this.ngOnInit();
-      if ( this.autSvc.hasLoginError() ) {
-        this.hasError = true;
-      }
     }
-    return false;
   }
 
   public register(): void {
