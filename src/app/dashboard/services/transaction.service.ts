@@ -22,6 +22,7 @@ export class TransactionService {
     this.resource.getTransactions('2016-05-11T02:00:00.000Z',
       '2019-12-11T02:00:00.000Z', 1, 0).subscribe(
       (data: any) => {
+        console.log('get transactions:');
         console.log(data);
       }
     );

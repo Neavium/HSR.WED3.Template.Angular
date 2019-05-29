@@ -1,0 +1,93 @@
+<div class="ui inverted segment" style="border-radius: 0">
+  <div class="ui inverted secondary menu" style="display: flex; align-items: center">
+    <h1 style="margin: 0">Bank of Rapperswil</h1>
+    <p style="margin: 0 20px">Dashboard</p>
+    <form (ngSubmit)="goToDashboard()">
+      <button class="item" type="submit">Dashboard</button>
+    </form>
+    <form (ngSubmit)="goToAllTransactions()">
+      <button class="active item" type="submit">Account Transactions</button>
+    </form>
+    <div style="display: inherit; flex-grow: 1; justify-content: flex-end">
+      <wed-logout></wed-logout>
+    </div>
+  </div>
+</div>
+<div style="display: flex">
+  <div class="ui segments" style="width: 100%; margin: 10px">
+    <div class="ui segment" style="padding: 0">
+      <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
+        <h1>All Transactions</h1>
+      </div>
+    </div>
+    <div class="ui segment">
+      <h2>Filter</h2>
+      <form class="ui form" style="display: flex">
+        <div class="field" style="margin: 10px">
+          <label>
+            Select a year
+            <div class="ui fluid dropdown selection">
+              <input type="hidden" name="year">
+              <i class="dropdown icon"></i>
+              <div class="default text">Year</div>
+              <div class="menu">
+                <div class="item" data-value="0">2017</div>
+                <div class="item" data-value="1">2018</div>
+                <div class="item" data-value="2">2019</div>
+              </div>
+            </div>
+          </label>
+        </div>
+        <div class="field" style="margin: 10px; flex-grow: 1">
+          <label>
+            Select a month
+            <div class="ui fluid search dropdown selection">
+              <input type="hidden" name="month">
+              <i class="dropdown icon"></i>
+              <div class="default text">Month</div>
+              <div class="menu">
+                <div class="item" data-value="0">January</div>
+                <div class="item" data-value="1">February</div>
+                <div class="item" data-value="2">March</div>
+                <div class="item" data-value="3">April</div>
+                <div class="item" data-value="4">May</div>
+                <div class="item" data-value="5">June</div>
+                <div class="item" data-value="6">July</div>
+                <div class="item" data-value="7">August</div>
+                <div class="item" data-value="8">September</div>
+                <div class="item" data-value="9">October</div>
+                <div class="item" data-value="10">November</div>
+                <div class="item" data-value="11">December</div>
+              </div>
+            </div>
+          </label>
+        </div>
+      </form>
+      <div class="ui divider"></div>
+      <div class="ui relaxed divided list">
+        <div class="item" style="display: flex; justify-content: space-between">
+          <div class="content" style="flex-grow: 1"><h4>Date</h4></div>
+          <div class="content" style="flex-grow: 1"><h4>Source</h4></div>
+          <div class="content" style="flex-grow: 1"><h4>Target</h4></div>
+          <div class="content" style="flex-grow: 1"><h4>Amount [CHF]</h4></div>
+          <div class="content" style="flex-grow: 1"><h4>Balance [CHF]</h4></div>
+        </div>
+        <div class="item" style="display: flex; justify-content: space-between">
+          <div class="content" style="flex-grow: 1"><h4>13.02.2019</h4></div>
+          <div class="content" style="flex-grow: 1"><p>100000000</p></div>
+          <div class="content" style="flex-grow: 1"><p>100000001</p></div>
+          <div class="content" style="flex-grow: 1"><p>-50</p></div>
+          <div class="content" style="flex-grow: 1"><p>950</p></div>
+        </div>
+        <div class="item" style="display: flex; justify-content: space-between">
+          <div class="content" style="flex-grow: 1"><h4>12.02.2019</h4></div>
+          <div class="content" style="flex-grow: 1"><p>000000000</p></div>
+          <div class="content" style="flex-grow: 1"><p>100000000</p></div>
+          <div class="content" style="flex-grow: 1"><p>1000</p></div>
+          <div class="content" style="flex-grow: 1"><p></p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

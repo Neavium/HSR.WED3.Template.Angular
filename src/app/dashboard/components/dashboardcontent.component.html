@@ -1,0 +1,73 @@
+<div class="ui inverted segment" style="border-radius: 0">
+  <div class="ui inverted secondary menu" style="display: flex; align-items: center">
+    <h1 style="margin: 0">Bank of Rapperswil</h1>
+    <p style="margin: 0 20px">Dashboard</p>
+    <form (ngSubmit)="goToDashboard()">
+      <button class="active item" type="submit">Dashboard</button>
+    </form>
+    <form (ngSubmit)="goToAllTransactions()">
+      <button class="item" type="submit">Account Transactions</button>
+    </form>
+    <div style="display: inherit; flex-grow: 1; justify-content: flex-end">
+      <wed-logout></wed-logout>
+    </div>
+  </div>
+</div>
+<div style="display: flex">
+  <div class="ui segments" style="width: 40%; margin: 10px">
+    <div class="ui segment" style="padding: 0">
+      <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
+        <h1>New Payment</h1>
+      </div>
+    </div>
+    <div class="ui segment">
+      <form (ngSubmit)="doTransaction(transactionForm)" #transactionForm="ngForm" class="ui form">
+        <div class="field">
+          <label>
+            From:
+            <div>
+              <input type="text" pattern=".{2,}" placeholder="From"
+                     name="from" [(ngModel)]="from" #From="ngModel"
+                     style="width: 30em" disabled>
+            </div>
+          </label>
+        </div>
+        <div class="field">
+          <label>
+            To:
+            <div>
+              <input type="text" pattern=".{2,}" placeholder="Target Account Number"
+                     name="to" [(ngModel)]="to" #To="ngModel"
+                     style="width: 30em" required>
+              <div *ngIf="To.invalid && (To.dirty || To.touched)">Please specify the target account number.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field">
+          <label>
+            Amount [CHF]:
+            <div>
+              <input type="text" pattern=".{2,}" placeholder="Amount in CHF"
+                     name="amount" [(ngModel)]="amount" #Amount="ngModel"
+                     style="width: 30em" required>
+              <div *ngIf="Amount.invalid && (Amount.dirty || Amount.touched)">Please specify the amount.</div>
+            </div>
+          </label>
+        </div>
+        <button class="ui blue button" type="submit">Pay</button>
+      </form>
+    </div>
+  </div>
+  <div class="ui segments" style="width: 60%; margin: 10px">
+    <div class="ui segment" style="padding: 0">
+      <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
+        <h1>Latest Transactions</h1>
+      </div>
+    </div>
+    <div class="ui segment">
+      <form (ngSubmit)="goToAllTransactions()">
+        <button class="ui blue button" type="submit">All Transactions</button>
+      </form>
+    </div>
+  </div>
+</div>

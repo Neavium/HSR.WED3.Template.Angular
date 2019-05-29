@@ -15,6 +15,7 @@ import {AuthModule} from './auth/auth.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {TransactionResourceService} from './dashboard/resources/transaction-resource.service';
+import {AccountResourceService} from './dashboard/resources/account-resource.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import {TransactionResourceService} from './dashboard/resources/transaction-reso
     AppRoutingModule
   ],
   providers: [
-    TransactionResourceService,
+    TransactionResourceService, AccountResourceService,
     {provide: LOCALE_ID, useValue: 'de-CH'}
   ],
   bootstrap: [AppComponent]
