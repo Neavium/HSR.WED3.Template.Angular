@@ -18,7 +18,7 @@ export class AccountResourceService extends ResourceBase {
       .pipe(
         map((result: any) => {
           if (result) {
-            return result;
+            return Owner.fromDto(result);
           }
           return null;
         }),
@@ -31,7 +31,7 @@ export class AccountResourceService extends ResourceBase {
       .pipe(
         map((result: any) => {
           if (result) {
-            return result;
+            return AccountInfo.fromDto(result);
           }
           return null;
         }),

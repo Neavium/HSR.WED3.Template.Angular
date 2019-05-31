@@ -1,5 +1,3 @@
-
-
 export class TransactionInfo {
   constructor(public target: number,
               public amount: number) {

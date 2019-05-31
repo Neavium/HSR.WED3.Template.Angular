@@ -6,7 +6,7 @@ export class AccountInfo {
   }
 
   public static fromDto(data: any): AccountInfo {
-    return new AccountInfo(data.accountNr, data.owner);
+    return new AccountInfo(data.accountNr, OwnerInfo.fromDto(data.owner));
   }
 
   toDto(): any {

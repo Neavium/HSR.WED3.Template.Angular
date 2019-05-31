@@ -1,70 +1,80 @@
-<div class="ui inverted segment" style="border-radius: 0">
-  <div class="ui inverted secondary menu" style="display: flex; align-items: center">
-    <h1 style="margin: 0">Bank of Rapperswil</h1>
-    <p style="margin: 0 20px">Register</p>
-    <form (ngSubmit)="goToHome()">
-      <button class="item" type="submit">Home</button>
-    </form>
+<div class="ui inverted segment headline">
+  <div class="ui inverted secondary menu healinemenu">
+    <div class="headlinetitlecontainer">
+      <h1 class="headlinetitle">Bank of Rapperswil</h1>
+      <p class="headlinesubtitle">Register</p>
+    </div>
+    <div class="headlinebuttoncontainer">
+      <form (ngSubmit)="goToHome()">
+        <button class="item headlinebutton" type="submit">Home</button>
+      </form>
+    </div>
   </div>
 </div>
-<form (ngSubmit)="doRegister(registerForm)" #registerForm="ngForm" class="ui form"
-      style="width: 75%; margin-left: 12.5%; margin-top: 10%">
-  <div class="field">
-    <label>
-      First name:
-      <div>
-        <input type="text" pattern=".{2,}" placeholder="First name"
-               name="firstname" [(ngModel)]="firstname" #Firstname="ngModel"
-               style="width: 30em" required>
-        <div *ngIf="Firstname.invalid && (Firstname.dirty || Firstname.touched)">Please specify your first name.</div>
+<div class="contentcontainer">
+  <div class="ui segments content">
+    <div class="ui segment" style="padding: 0">
+      <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
+        <h1>Welcome to the Finance Portal.</h1>
       </div>
-    </label>
+    </div>
+    <div class="ui segment" style="padding: 0">
+      <form (ngSubmit)="doRegister(registerForm)" #registerForm="ngForm" class="ui form">
+        <div class="field" style="margin: 1em;">
+          <label>
+            First name:
+            <div>
+              <input type="text" pattern=".{2,}" placeholder="First name"
+                     name="firstname" [(ngModel)]="firstname" #Firstname="ngModel" required>
+              <div *ngIf="Firstname.invalid && (Firstname.dirty || Firstname.touched)">Please specify your first name.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field" style="margin: 1em;">
+          <label>
+            Last name:
+            <div>
+              <input type="text" pattern=".{2,}" placeholder="Last name"
+                     name="lastname" [(ngModel)]="lastname" #Lastname="ngModel" required>
+              <div *ngIf="Lastname.invalid && (Lastname.dirty || Lastname.touched)">Please specify your last name.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field" style="margin: 1em;">
+          <label>
+            User name:
+            <div>
+              <input type="text" pattern=".{3,}" placeholder="User"
+                     name="login" [(ngModel)]="login" #Login="ngModel" required>
+              <div *ngIf="Login.invalid && (Login.dirty || Login.touched)">Please specify your login, at least three characters.</div>
+              <div *ngIf="usernameAlreadyUsed" style="color: red">Username has already been used. Choose a different one.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field" style="margin: 1em;">
+          <label>
+            Password:
+            <div>
+              <input type="password" pattern=".{3,}" placeholder="Password"
+                     name="password" [(ngModel)]="password" #Password="ngModel" required>
+              <div *ngIf="Password.invalid && (Password.dirty || Password.touched)">Please specify your password, at least three characters.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field" style="margin: 1em;">
+          <label>
+            Confirm Password:
+            <div>
+              <input type="password" pattern=".{3,}" placeholder="Password"
+                     name="passwordConfirm" [(ngModel)]="passwordConfirm" #PasswordConfirm="ngModel" required>
+              <div *ngIf="PasswordConfirm.invalid && (PasswordConfirm.dirty || PasswordConfirm.touched)">Please confirm your password.</div>
+              <div *ngIf="passwordNotEqual" style="color: red">Please confirm your password.</div>
+            </div>
+          </label>
+        </div>
+        <button class="ui blue button" type="submit" style="margin: 0 0 2em 1em;">Register & Login</button>
+      </form>
+    </div>
   </div>
-  <div class="field">
-    <label>
-      Last name:
-      <div>
-        <input type="text" pattern=".{2,}" placeholder="Last name"
-               name="lastname" [(ngModel)]="lastname" #Lastname="ngModel"
-               style="width: 30em" required>
-        <div *ngIf="Lastname.invalid && (Lastname.dirty || Lastname.touched)">Please specify your last name.</div>
-      </div>
-    </label>
-  </div>
-  <div class="field">
-    <label>
-      User name:
-      <div>
-        <input type="text" pattern=".{3,}" placeholder="User"
-               name="login" [(ngModel)]="login" #Login="ngModel"
-               style="width: 30em" required>
-        <div *ngIf="Login.invalid && (Login.dirty || Login.touched)">Please specify your login, at least three characters.</div>
-        <div *ngIf="usernameAlreadyUsed" style="color: red">Username has already been used. Choose a different one.</div>
-      </div>
-    </label>
-  </div>
-  <div class="field">
-    <label>
-      Password:
-      <div>
-        <input type="password" pattern=".{3,}" placeholder="Password"
-               name="password" [(ngModel)]="password" #Password="ngModel"
-               style="width: 30em" required>
-        <div *ngIf="Password.invalid && (Password.dirty || Password.touched)">Please specify your password, at least three characters.</div>
-      </div>
-    </label>
-  </div>
-  <div class="field">
-    <label>
-      Confirm Password:
-      <div>
-        <input type="password" pattern=".{3,}" placeholder="Password"
-               name="passwordConfirm" [(ngModel)]="passwordConfirm" #PasswordConfirm="ngModel"
-               style="width: 30em" required>
-        <div *ngIf="PasswordConfirm.invalid && (PasswordConfirm.dirty || PasswordConfirm.touched)">Please confirm your password.</div>
-        <div *ngIf="passwordNotEqual" style="color: red">Please confirm your password.</div>
-      </div>
-    </label>
-  </div>
-  <button class="ui button" type="submit">Register</button>
-</form>
+</div>
+

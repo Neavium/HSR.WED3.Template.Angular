@@ -1,70 +1,92 @@
-<div class="ui inverted segment" style="border-radius: 0">
-  <div class="ui inverted secondary menu" style="display: flex; align-items: center">
-    <h1 style="margin: 0">Bank of Rapperswil</h1>
-    <p style="margin: 0 20px">Dashboard</p>
-    <form (ngSubmit)="goToDashboard()">
-      <button class="active item" type="submit">Dashboard</button>
-    </form>
-    <form (ngSubmit)="goToAllTransactions()">
-      <button class="item" type="submit">Account Transactions</button>
-    </form>
-    <div style="display: inherit; flex-grow: 1; justify-content: flex-end">
+<div class="ui inverted segment headline">
+  <div class="ui inverted secondary menu headlinemenu">
+    <div class="headlinetitlecontainer">
+      <h1 class="headlinetitle">Bank of Rapperswil</h1>
+      <p class="headlinesubtitle">Dashboard</p>
+    </div>
+    <div class="headlinebuttoncontainer">
+      <form (ngSubmit)="goToDashboard()">
+        <button class="active item headlinebutton" type="submit">Dashboard</button>
+      </form>
+      <form (ngSubmit)="goToAllTransactions()">
+        <button class="item headlinebutton" type="submit">Account Transactions</button>
+      </form>
+    </div>
+    <div class="headlinelogoutbuttoncontainer">
       <wed-logout></wed-logout>
     </div>
   </div>
 </div>
-<div style="display: flex">
-  <div class="ui segments" style="width: 40%; margin: 10px">
+<div class="contentcontainer">
+  <div class="ui segments dashboardpay">
     <div class="ui segment" style="padding: 0">
       <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
         <h1>New Payment</h1>
       </div>
     </div>
-    <div class="ui segment">
+    <div class="ui segment" *ngIf="!transactionSuccess">
       <form (ngSubmit)="doTransaction(transactionForm)" #transactionForm="ngForm" class="ui form">
         <div class="field">
           <label>
             From:
-            <div>
               <input type="text" pattern=".{2,}" placeholder="From"
                      name="from" [(ngModel)]="from" #From="ngModel"
-                     style="width: 30em" disabled>
-            </div>
+                     disabled>
           </label>
         </div>
         <div class="field">
           <label>
             To:
-            <div>
-              <input type="text" pattern=".{2,}" placeholder="Target Account Number"
+              <input type="text" pattern=".{1,}" placeholder="Target Account Number"
                      name="to" [(ngModel)]="to" #To="ngModel"
-                     style="width: 30em" required>
-              <div *ngIf="To.invalid && (To.dirty || To.touched)">Please specify the target account number.</div>
-            </div>
+                     required (input)="getAccount()">
+              <a *ngIf="To.invalid && (To.dirty || To.touched)" style="color: black">Please specify the target account number.</a>
+              <a style="color: black">{{message}}</a>
           </label>
         </div>
         <div class="field">
           <label>
             Amount [CHF]:
-            <div>
-              <input type="text" pattern=".{2,}" placeholder="Amount in CHF"
-                     name="amount" [(ngModel)]="amount" #Amount="ngModel"
-                     style="width: 30em" required>
-              <div *ngIf="Amount.invalid && (Amount.dirty || Amount.touched)">Please specify the amount.</div>
-            </div>
+              <input type="number" pattern="^(\d+(?:.\d{0,2})?)" placeholder="Amount in CHF"
+                     name="amount" [(ngModel)]="amount" #Amount="ngModel" step="0.05"
+                     required (input)="validateAmount()">
+              <a *ngIf="(!amountValid || Amount.invalid) && (Amount.dirty || Amount.touched)" style="color: black">Please enter a valid amount. Multiple of 0.05 CHF.</a>
+              <a *ngIf="!hasAmount() && (Amount.dirty || Amount.touched)" style="color: red">The amount is higher then what you own!</a>
           </label>
         </div>
         <button class="ui blue button" type="submit">Pay</button>
       </form>
     </div>
+    <div class="ui segment" *ngIf="transactionSuccess">
+      <p>Transaction to {{to}} succeeded!</p>
+      <p>New Balance {{owner.amount.toFixed(2)}} CHF</p>
+      <form (ngSubmit)="startOver()">
+        <button class="ui blue button" type="submit">Start Over</button>
+      </form>
+    </div>
   </div>
-  <div class="ui segments" style="width: 60%; margin: 10px">
+  <div class="ui segments dashboardlatest">
     <div class="ui segment" style="padding: 0">
       <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
         <h1>Latest Transactions</h1>
       </div>
     </div>
     <div class="ui segment">
+      <div class="ui relaxed divided list">
+        <div class="item" style="display: flex; height: 43px; align-items: center">
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Source</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Target</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Amount [CHF]</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Balance [CHF]</h4></div>
+        </div>
+        <div class="item" style="display: flex; height: 43px; align-items: center"
+             *ngFor="let element of latestTransactions">
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.from}}</p></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.target}}</p></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.amount.toFixed(2)}}</p></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.total.toFixed(2)}}</p></div>
+        </div>
+      </div>
       <form (ngSubmit)="goToAllTransactions()">
         <button class="ui blue button" type="submit">All Transactions</button>
       </form>

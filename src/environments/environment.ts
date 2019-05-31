@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  serverBaseUrl: 'http://localhost:3000'
+  serverBaseUrl: 'https://wed3-server.herokuapp.com'
 };
 
 // alternatively, you could use serverBaseUrl: 'https://wed3-server.herokuapp.com'
+// local: 'http://localhost:3000'
 
 
 /*

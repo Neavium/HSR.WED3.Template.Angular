@@ -1,1 +1,119 @@
 /* You can add global styles to this file, and also import other style files */
+
+//Headline
+.headline {
+  border-radius: 0 !important;
+}
+
+.headlinemenu {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.headlinetitlecontainer {
+  display: inherit !important;
+  align-items: center !important;
+}
+
+.headlinetitle {
+  margin: 0 !important;
+}
+
+.headlinesubtitle {
+  margin: 0 20px !important;
+}
+
+.headlinebuttoncontainer {
+  display: inherit !important;
+}
+
+.headlinebutton {
+  border: solid 1px white !important;
+}
+
+.headlinelogoutbuttoncontainer {
+  display: inherit !important;
+  flex-grow: 1 !important;
+  justify-content: flex-end !important;
+}
+
+//Content
+.contentcontainer {
+  display: flex !important;
+  max-width: 1000px !important;
+  margin: auto !important;
+}
+
+.dashboardpay {
+  width: 40% !important;
+  height: fit-content !important;
+  margin: 10px !important;
+}
+
+.dashboardlatest {
+  width: 60% !important;
+  height: fit-content !important;
+  margin: 10px !important;
+}
+
+.content {
+  width: 100% !important;
+  margin: 10px !important;
+}
+
+.logincontent {
+  max-width: 1000px !important;
+  margin: 3em auto 0 auto !important;
+}
+
+.verticallogindivider {
+  visibility: visible !important;
+}
+
+.horizontallogindivider {
+  visibility: hidden !important;
+}
+
+@media (max-width: 805px) {
+
+  //Headline
+  .headlinemenu {
+    align-items: start !important;
+    flex-direction: column !important;
+  }
+
+  .headlinesubtitle {
+    margin: 0 20px !important;
+  }
+
+  .headlinebutton {
+    margin: 0.2em !important;
+  }
+
+  //Content
+  .contentcontainer {
+    flex-direction: column !important;
+  }
+
+  .dashboardpay {
+    width: 97% !important;
+  }
+
+  .dashboardlatest {
+    width: 97% !important;
+  }
+
+  .content {
+    width: 97% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .verticallogindivider {
+    visibility: hidden !important;
+  }
+
+  .horizontallogindivider {
+    visibility: visible !important;
+  }
+}

@@ -9,7 +9,6 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard.component';
 import {DashboardcontentComponent} from './components/dashboardcontent.component';
 import {TransactionsComponent} from './components/transactions.component';
-import {LatestTransactionListEntryComponent} from './components/latestTransactionListEntry.component';
 
 
 const EXPORTED_DECLARATIONS = [
@@ -18,7 +17,7 @@ const EXPORTED_DECLARATIONS = [
 const INTERNAL_DECLARATIONS = [
   ...EXPORTED_DECLARATIONS,
   // Declarations (Components / Directives) which can be used inside the Module
-  DashboardComponent, DashboardcontentComponent, TransactionsComponent, LatestTransactionListEntryComponent
+  DashboardComponent, DashboardcontentComponent, TransactionsComponent
 ];
 const EXPORTS = [
   ...EXPORTED_DECLARATIONS

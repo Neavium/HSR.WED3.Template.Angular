@@ -8,7 +8,7 @@ export class Owner {
   }
 
   public static fromDto(data: any): Owner {
-    return new Owner(data.ownerId, data.accountNr, data.amount, data.owner);
+    return new Owner(data.ownerId, data.accountNr, data.amount, Account.fromDto(data.owner));
   }
 
   toDto(): any {

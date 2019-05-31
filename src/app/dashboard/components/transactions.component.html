@@ -1,20 +1,24 @@
-<div class="ui inverted segment" style="border-radius: 0">
-  <div class="ui inverted secondary menu" style="display: flex; align-items: center">
-    <h1 style="margin: 0">Bank of Rapperswil</h1>
-    <p style="margin: 0 20px">Dashboard</p>
-    <form (ngSubmit)="goToDashboard()">
-      <button class="item" type="submit">Dashboard</button>
-    </form>
-    <form (ngSubmit)="goToAllTransactions()">
-      <button class="active item" type="submit">Account Transactions</button>
-    </form>
-    <div style="display: inherit; flex-grow: 1; justify-content: flex-end">
+<div class="ui inverted segment headline">
+  <div class="ui inverted secondary menu headlinemenu">
+    <div class="headlinetitlecontainer">
+      <h1 class="headlinetitle">Bank of Rapperswil</h1>
+      <p class="headlinesubtitle">Dashboard</p>
+    </div>
+    <div class="headlinebuttoncontainer">
+      <form (ngSubmit)="goToDashboard()">
+        <button class="item headlinebutton" type="submit">Dashboard</button>
+      </form>
+      <form (ngSubmit)="goToAllTransactions()">
+        <button class="active item headlinebutton" type="submit">Account Transactions</button>
+      </form>
+    </div>
+    <div class="headlinelogoutbuttoncontainer">
       <wed-logout></wed-logout>
     </div>
   </div>
 </div>
-<div style="display: flex">
-  <div class="ui segments" style="width: 100%; margin: 10px">
+<div class="contentcontainer">
+  <div class="ui segments content">
     <div class="ui segment" style="padding: 0">
       <div class="ui label" style="margin: 0; padding: 14px; width: 100%;">
         <h1>All Transactions</h1>
@@ -23,26 +27,26 @@
     <div class="ui segment">
       <h2>Filter</h2>
       <form class="ui form" style="display: flex">
-        <div class="field" style="margin: 10px">
+        <div class="field" style="margin: 10px; flex-grow: 1">
           <label>
             Select a year
-            <div class="ui fluid dropdown selection">
-              <input type="hidden" name="year">
+            <div class="ui fluid dropdown selection" id="yearDropdown">
+              <input type="hidden" name="year" [(ngModel)]="year" #Year="ngModel" (change)="changeYear()">
               <i class="dropdown icon"></i>
               <div class="default text">Year</div>
               <div class="menu">
-                <div class="item" data-value="0">2017</div>
-                <div class="item" data-value="1">2018</div>
-                <div class="item" data-value="2">2019</div>
+                <div class="item" data-value="2017">2017</div>
+                <div class="item" data-value="2018">2018</div>
+                <div class="item" data-value="2019">2019</div>
               </div>
             </div>
           </label>
         </div>
-        <div class="field" style="margin: 10px; flex-grow: 1">
+        <div class="field" style="margin: 10px; flex-grow: 3">
           <label>
             Select a month
-            <div class="ui fluid search dropdown selection">
-              <input type="hidden" name="month">
+            <div class="ui fluid search dropdown selection" id="monthDropdown">
+              <input type="hidden" name="month" [(ngModel)]="month" #Month="ngModel" (change)="changeMonth()">
               <i class="dropdown icon"></i>
               <div class="default text">Month</div>
               <div class="menu">
@@ -65,26 +69,20 @@
       </form>
       <div class="ui divider"></div>
       <div class="ui relaxed divided list">
-        <div class="item" style="display: flex; justify-content: space-between">
-          <div class="content" style="flex-grow: 1"><h4>Date</h4></div>
-          <div class="content" style="flex-grow: 1"><h4>Source</h4></div>
-          <div class="content" style="flex-grow: 1"><h4>Target</h4></div>
-          <div class="content" style="flex-grow: 1"><h4>Amount [CHF]</h4></div>
-          <div class="content" style="flex-grow: 1"><h4>Balance [CHF]</h4></div>
+        <div class="item" style="display: flex; height: 43px; align-items: center">
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Date</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Source</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Target</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Amount [CHF]</h4></div>
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">Balance [CHF]</h4></div>
         </div>
-        <div class="item" style="display: flex; justify-content: space-between">
-          <div class="content" style="flex-grow: 1"><h4>13.02.2019</h4></div>
-          <div class="content" style="flex-grow: 1"><p>100000000</p></div>
-          <div class="content" style="flex-grow: 1"><p>100000001</p></div>
-          <div class="content" style="flex-grow: 1"><p>-50</p></div>
-          <div class="content" style="flex-grow: 1"><p>950</p></div>
-        </div>
-        <div class="item" style="display: flex; justify-content: space-between">
-          <div class="content" style="flex-grow: 1"><h4>12.02.2019</h4></div>
-          <div class="content" style="flex-grow: 1"><p>000000000</p></div>
-          <div class="content" style="flex-grow: 1"><p>100000000</p></div>
-          <div class="content" style="flex-grow: 1"><p>1000</p></div>
-          <div class="content" style="flex-grow: 1"><p></p></div>
+        <div class="item" style="display: flex; height: 43px; align-items: center"
+             *ngFor="let element of transactions">
+          <div class="content" style="flex-grow: 1"><h4 style="width: 100px">{{element.date}}</h4></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.from}}</p></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.target}}</p></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.amount.toFixed(2)}}</p></div>
+          <div class="content" style="flex-grow: 1"><p style="width: 100px">{{element.total.toFixed(2)}}</p></div>
         </div>
       </div>
     </div>
